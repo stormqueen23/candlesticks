@@ -105,8 +105,8 @@ class _PriceColumnState extends State<PriceColumn> {
                   children: [
                     Container(
                       color: widget.lastCandle.isBull
-                          ? Theme.of(context).primaryGreen
-                          : Theme.of(context).primaryRed,
+                          ? Colors.green
+                          : Colors.red,
                       child: Center(
                         child: Text(
                           HelperFunctions.priceToString(

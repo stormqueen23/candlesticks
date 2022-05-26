@@ -189,6 +189,7 @@ class _MobileChartState extends State<MobileChart> {
                                               vertical: MAIN_CHART_VERTICAL_PADDING + additionalVerticalPadding),
                                           child: RepaintBoundary(
                                             child: CandleStickWidget(
+                                              brightness: Theme.of(context).brightness,
                                               candles: widget.candles,
                                               candleWidth: widget.candleWidth,
                                               index: widget.index,
@@ -236,8 +237,8 @@ class _MobileChartState extends State<MobileChart> {
                                         barWidth: widget.candleWidth,
                                         index: widget.index,
                                         high: HelperFunctions.getRoof(volumeHigh),
-                                        bearColor: Theme.of(context).secondaryRed,
-                                        bullColor: Theme.of(context).secondaryGreen,
+                                        bearColor: Colors.red,
+                                        bullColor: Colors.green,
                                       ),
                                     ),
                                   ),
@@ -331,7 +332,7 @@ class _MobileChartState extends State<MobileChart> {
                             : null,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 50, bottom: 20),
+                        padding: const EdgeInsets.only(right: 50, bottom: 20, top: 20),
                         child: GestureDetector(
                           onLongPressEnd: (_) {
                             setState(() {

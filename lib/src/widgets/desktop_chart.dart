@@ -100,7 +100,7 @@ class _DesktopChartState extends State<DesktopChart> {
     minTiles = max(2, minTiles);
     double sizeRange = high - low;
     double minStepSize = sizeRange / minTiles;
-    double base = pow(10, HelperFunctions.log10(minStepSize).floor()).toDouble();
+    double base = sizeRange == 0 ? 0 : pow(10, HelperFunctions.log10(minStepSize).floor()).toDouble();
 
     if (2 * base > minStepSize) return 2 * base;
     if (5 * base > minStepSize) return 5 * base;
@@ -230,6 +230,7 @@ class _DesktopChartState extends State<DesktopChart> {
                                               vertical: MAIN_CHART_VERTICAL_PADDING + additionalVerticalPadding),
                                           child: RepaintBoundary(
                                             child: CandleStickWidget(
+                                              brightness: Theme.of(context).brightness,
                                               candles: candles,
                                               candleWidth: widget.candleWidth,
                                               index: widget.index,
@@ -277,8 +278,8 @@ class _DesktopChartState extends State<DesktopChart> {
                                         barWidth: widget.candleWidth,
                                         index: widget.index,
                                         high: HelperFunctions.getRoof(volumeHigh),
-                                        bearColor: Theme.of(context).secondaryRed,
-                                        bullColor: Theme.of(context).secondaryGreen,
+                                        bearColor: Colors.red,
+                                        bullColor: Colors.green,
                                       ),
                                     ),
                                   ),

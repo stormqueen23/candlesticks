@@ -26,14 +26,14 @@ class CandleInfoText extends StatelessWidget {
   }
 
   String dateFormatter(DateTime date) {
-    return "${date.year}-${numberFormat(date.month)}-${numberFormat(date.day)} ${numberFormat(date.hour)}:${numberFormat(date.minute)}";
+    return "${numberFormat(date.day)}.${numberFormat(date.month)}.${date.year} ${numberFormat(date.hour)}:${numberFormat(date.minute)}";
   }
 
   @override
   Widget build(BuildContext context) {
     final Color color = candleStyle != null
         ? (candle.isBull ? candleStyle!.bullColor : candleStyle!.bearColor)
-        : (candle.isBull ? Theme.of(context).primaryGreen : Theme.of(context).primaryRed);
+        : (candle.isBull ? Colors.green : Colors.red);
 
     final currentIndex = data.indexOf(candle);
     double ma7 = 0, ma25 = 0, ma99 = 0;
@@ -75,6 +75,10 @@ class CandleInfoText extends StatelessWidget {
               TextSpan(text: "  Close: "),
               TextSpan(
                   text: HelperFunctions.priceToString(candle.close),
+                  style: TextStyle(color: color, fontWeight: FontWeight.bold)),
+              TextSpan(text: "  Volume: "),
+              TextSpan(
+                  text: candle.volume.toStringAsFixed(0),
                   style: TextStyle(color: color, fontWeight: FontWeight.bold)),
             ],
           ),

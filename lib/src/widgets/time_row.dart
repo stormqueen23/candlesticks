@@ -77,7 +77,7 @@ class _TimeRowState extends State<TimeRow> {
   /// Day/month text widget
   Text _monthDayText(DateTime _time, Color color) {
     return Text(
-      numberFormat(_time.month) + "/" + numberFormat(_time.day),
+      numberFormat(_time.day) + "." + numberFormat(_time.month),
       style: TextStyle(
         color: color,
         fontSize: 12,
@@ -97,7 +97,7 @@ class _TimeRowState extends State<TimeRow> {
   }
 
   String dateFormatter(DateTime date) {
-    return "${date.year}-${numberFormat(date.month)}-${numberFormat(date.day)} ${numberFormat(date.hour)}:${numberFormat(date.minute)}";
+    return "${date.day}.${numberFormat(date.month)}.${numberFormat(date.year)} ${numberFormat(date.hour)}:${numberFormat(date.minute)}";
   }
 
   @override

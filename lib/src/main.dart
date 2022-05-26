@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:candlesticks_plus/src/models/candle.dart';
 import 'package:candlesticks_plus/src/models/candle_style.dart';
 import 'package:candlesticks_plus/src/theme/theme_data.dart';
+import 'package:candlesticks_plus/src/utils/helper_functions.dart';
 import 'package:candlesticks_plus/src/widgets/toolbar_action.dart';
 import 'package:candlesticks_plus/src/widgets/mobile_chart.dart';
 import 'package:candlesticks_plus/src/widgets/desktop_chart.dart';
@@ -33,6 +34,8 @@ class Candlesticks extends StatefulWidget {
 
   final String? watermark;
 
+  final double zoomFactor;
+
   Candlesticks({
     Key? key,
     required this.candles,
@@ -43,7 +46,8 @@ class Candlesticks extends StatefulWidget {
     this.ma7 = true,
     this.ma25 = true,
     this.ma99 = true,
-    this.watermark
+    this.watermark,
+    this.zoomFactor = 6
   }) : super(key: key);
 
   @override
@@ -64,22 +68,29 @@ class _CandlesticksState extends State<Candlesticks> {
   /// true when widget.onLoadMoreCandles is fetching new candles.
   bool isCallingLoadMore = false;
 
+
+  @override
+  void initState() {
+    candleWidth = widget.zoomFactor;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         if (widget.showToolbar)
           ToolBar(
+            currentZoom: candleWidth,
             onZoomInPressed: () {
               setState(() {
                 candleWidth += 2;
-                candleWidth = min(candleWidth, 16);
+                candleWidth = min(candleWidth, HelperFunctions.maxZoomIn);
               });
             },
             onZoomOutPressed: () {
               setState(() {
                 candleWidth -= 2;
-                candleWidth = max(candleWidth, 4);
+                candleWidth = max(candleWidth, HelperFunctions.maxZoomOut);
               });
             },
             children: widget.actions,
